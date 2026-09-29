@@ -11,6 +11,23 @@ support.encryptor8("hellox")
 support.encryptor9("h")
 support.encryptor10("hello")
 
+# Testing
+
+support.encryptor6("r")
+support.encryptor6("R")
+support.encryptor6("rrrr")
+support.encryptor6("RRRR")
+support.encryptor6("rabbit")
+support.encryptor6("Rabbit")
+support.encryptor6("carrot")
+support.encryptor6("RARARA")
+support.encryptor6("hello")
+
+support.encryptor10("abcdefgh")
+support.encryptor10("AEIOUxyz")
+support.encryptor10("hello")
+support.encryptor10("bcdfgh")
+support.encryptor10("computer")
 
 g = "-------------------------" # so i can see where my functions begin
 g
@@ -88,11 +105,11 @@ fun my_encryptor5(s :: String) -> String:
   replacei = string-replace(replacee, "i", "j")
   replaceo = string-replace(replacei, "o", "p")
   replaceu = string-replace(replaceo, "u", "v")
-  replaceA = string-replace(replaceu, "A", "b")
-  replaceE = string-replace(replaceA, "E", "f")
-  replaceI = string-replace(replaceE, "I", "j")
-  replaceO = string-replace(replaceI, "O", "p")
-  replaceU = string-replace(replaceO, "U", "v")
+  replaceA = string-replace(replaceu, "A", "B")
+  replaceE = string-replace(replaceA, "E", "F")
+  replaceI = string-replace(replaceE, "I", "J")
+  replaceO = string-replace(replaceI, "O", "P")
+  replaceU = string-replace(replaceO, "U", "V")
   replaceU
 
 where:
@@ -106,15 +123,14 @@ my_encryptor5("hello")
 # Sixth one
 
 fun my_encryptor6(s :: String) -> String:
-  doc: "Recreating encryptor 6, removes the letter r from any word"
+  doc: "Recreating encryptor 6, it converts the string to lowercase and removes all letter r"
   
-  a = string-replace(s, "r", "")
-  b = string-replace(a, "R", "")
-  b
-  
+  a = string-to-lower(s)
+  string-replace(a, "r", "")
+
 where:
-  my_encryptor6("Robert") 
-    is "obet"
+  my_encryptor6("Robert") is "obet"
+  my_encryptor6("RARARA") is "aaa"
 end
 
 my_encryptor6("Robert")
@@ -171,26 +187,25 @@ my_encryptor9("hello")
 # Tenth one
 
 fun my_encryptor10(s :: String) -> String:
-  doc: "Recreating encryptor 10, it changes vowels to the next character by alphabetical order, only keeps the first 4 characters in a variable, then repeats it 5 times"
+  doc: "Recreating encryptor 10, it uses encryptor 5, then encryptor 6, then encryptor 4"
   
-  replacea = string-replace(s, "a", "b")
-  replacee = string-replace(replacea, "e", "f")
-  replacei = string-replace(replacee, "i", "j")
-  replaceo = string-replace(replacei, "o", "p")
-  replaceu = string-replace(replaceo, "u", "v")
-  replaceA = string-replace(replaceu, "A", "b")
-  replaceE = string-replace(replaceA, "E", "f")
-  replaceI = string-replace(replaceE, "I", "j")
-  replaceO = string-replace(replaceI, "O", "p")
-  replaceU = string-replace(replaceO, "U", "v")
-  
-  a = string-substring(replaceU, 0, 4)
-  
-  string-repeat(a, 5)
+  my_encryptor4(my_encryptor6(my_encryptor5(s)))
   
 where:
-  my_encryptor10("hello") 
+  my_encryptor10("hello")
     is "hfllhfllhfllhfllhfll"
 end
 
 my_encryptor10("hello")
+
+
+support.test-encryptor1(my_encryptor1)
+support.test-encryptor2(my_encryptor2)
+support.test-encryptor3(my_encryptor3)
+support.test-encryptor4(my_encryptor4)
+support.test-encryptor5(my_encryptor5)
+support.test-encryptor6(my_encryptor6)
+support.test-encryptor7(my_encryptor7)
+support.test-encryptor8(my_encryptor8)
+support.test-encryptor9(my_encryptor9)
+support.test-encryptor10(my_encryptor10)
